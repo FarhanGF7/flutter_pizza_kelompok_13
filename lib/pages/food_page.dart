@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:uts_app/components/button.dart';
 import 'package:uts_app/models/food.dart';
+import 'package:uts_app/models/restaurant.dart';
 
 class FoodPage extends StatefulWidget {
   final Food food;
@@ -22,6 +24,22 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
+  // method menambahkan item ke keranjang
+  void addToCart(Food food, Map<Addon, bool> selectedAddons) {
+    // tutup food page lalu kembali ke home page
+    Navigator.pop(context);
+
+    // format addons yang dipilih
+    List<Addon> currentlySelectedAddons = [];
+    for (Addon addon in widget.food.availableAddons) {
+      if (widget.selectedAddons[addon] == true) {
+        currentlySelectedAddons.add(addon);
+      }
+    }
+
+    context.read<Restaurant>().addToCart(food, currentlySelectedAddons);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -119,7 +137,7 @@ class _FoodPageState extends State<FoodPage> {
 
                 // button -> add to cart
                 MyButton(
-                  onTap: () {},
+                  onTap: () => addToCart(widget.food, widget.selectedAddons),
                   text: "Tambah ke Keranjang",
                 ),
 

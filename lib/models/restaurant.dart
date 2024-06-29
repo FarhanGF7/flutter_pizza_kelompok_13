@@ -1,5 +1,7 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'cart_item.dart';
 import 'food.dart';
 
 class Restaurant extends ChangeNotifier {
@@ -84,20 +86,88 @@ class Restaurant extends ChangeNotifier {
   */
 
   List<Food> get menu => _menu;
+  List<CartItem> get cart => _cart;
 
   /* 
   METHODS 
   */
 
+  // user keranjang
+  final List<CartItem> _cart = [];
+
   // menambah pesanan ke keranjang
+  void addToCart(Food food, List<Addon> selectedAddons) {
+    // cek jika keranjang telah ditambahkan dengan jenis menu yang sama
+    CartItem? cartItem = _cart.firstWhereOrNull((item) {
+      // cek jika food item sama
+      bool isSameFood = item.food == food;
+
+      // cek jika addons item sama
+      bool isSameAddons = const ListEquality().equals(item.selectedAddons, selectedAddons);
+
+      return isSameFood && isSameAddons;
+    });
+    // cek keranjang sudah ada atau belum
+    if (cartItem != null) {
+      cartItem.quantity++;
+    } else {
+      _cart.add(
+        CartItem(
+          food: food,
+          selectedAddons: selectedAddons,
+          quantity: 1,
+        ),
+      );
+    }
+  }
 
   // mengurangi pesanan dari keranjang
+  void removeFromCart(CartItem cartItem) {
+    int cartIndex = _cart.indexOf(cartItem);
+
+    if (cartIndex != -1) {
+      if (_cart[cartIndex].quantity > 1) {
+        _cart[cartIndex].quantity--;
+      } else {
+        _cart.removeAt(cartIndex);
+      }
+    }
+    notifyListeners();
+  }
 
   // total biaya pesanan di keranjang
+  double getTotalPrice() {
+    double total = 0.0;
+
+    for (CartItem cartItem in _cart) {
+      double itemTotal = cartItem.food.price;
+
+      for (Addon addon in cartItem.selectedAddons) {
+        itemTotal += addon.price;
+      }
+
+      total += itemTotal * cartItem.quantity;
+    }
+
+    return total;
+  }
 
   // total banyaknya item di keranjang
+  int getTotalItems() {
+    int totalItemCount = 0;
+
+    for (CartItem cartItem in _cart) {
+      totalItemCount += cartItem.quantity;
+    }
+
+    return totalItemCount;
+  }
 
   // mengosongkan keranjang
+  void clearCart() {
+    _cart.clear();
+    notifyListeners();
+  }
 
   /* 
   CONSTRUCTORS 

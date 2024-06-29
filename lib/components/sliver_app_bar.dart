@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/cart.page.dart';
+
 class AppSliverAppBar extends StatelessWidget {
   final Widget child;
   final Widget title;
@@ -20,7 +22,14 @@ class AppSliverAppBar extends StatelessWidget {
       actions: [
         // tombol keranjang
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CartPage(),
+              ),
+            );
+          },
           icon: const Icon(Icons.shopping_cart),
         )
       ],
