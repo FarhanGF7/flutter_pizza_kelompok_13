@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uts_app/components/login_textfield.dart';
 import 'package:uts_app/components/signin_button.dart';
+import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? onTap;
@@ -14,8 +15,24 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // text editing controller
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
+
+  // login method
+  void login() {
+    /* 
+    
+    Implement login functionality 
+    
+    */
+
+    // navigasi ke home page
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
             Icon(
               Icons.local_pizza_outlined,
               size: 100,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
             const SizedBox(height: 20),
 
@@ -38,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
               'Pizza Rizqi',
               style: TextStyle(
                 fontSize: 16,
-                color: Theme.of(context).colorScheme.tertiary,
+                color: Theme.of(context).colorScheme.inversePrimary,
               ),
             ),
 
@@ -65,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
             // sign in button
             SignInButton(
               text: "Masuk",
-              onTap: () {},
+              onTap: login,
             ),
 
             const SizedBox(height: 25),

@@ -6,6 +6,6 @@ ThemeData lightTheme = ThemeData(
     primary: Colors.red.shade500,
     secondary: Colors.red.shade900,
     tertiary: Colors.black,
-    inversePrimary: Colors.white,
+    inversePrimary: Colors.black,
   ),
 );
