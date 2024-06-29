@@ -1,11 +1,13 @@
+// menu_page.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_app/components/button2.dart';
-import 'package:uts_app/theme/colors.dart';
+import 'package:uts_app/themes/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/shop.dart';
 import 'menu_details_page.dart';
 import '../components/food_tile.dart';
+import '../components/side_bar.dart'; // Tambahkan impor ini
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -43,8 +45,13 @@ class _MenuPageState extends State<MenuPage> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.grey[800],
         elevation: 0,
-        leading: const Icon(
-          Icons.menu,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
         ),
         title: const Text(
           'Pizza Rizqi',
@@ -59,6 +66,7 @@ class _MenuPageState extends State<MenuPage> {
           )
         ],
       ),
+      drawer: const AppDrawer(), // Tambahkan drawer ini
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

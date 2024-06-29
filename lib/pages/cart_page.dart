@@ -4,7 +4,7 @@ import 'package:uts_app/components/button.dart';
 
 import '../models/food.dart';
 import '../models/shop.dart';
-import '../theme/colors.dart';
+import '../themes/colors.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});

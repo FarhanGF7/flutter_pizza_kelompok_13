@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_app/pages/cart_page.dart';
+import 'package:uts_app/themes/tema.dart';
 import 'models/shop.dart';
 import 'pages/intro_page.dart';
 import 'pages/menu_page.dart';
@@ -8,7 +9,7 @@ import 'pages/menu_page.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => Shop(),
+      create: (context) => ThemeProvider(),
       child: const MyApp(),
     ),
   );
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const IntroPage(),
+      theme: Provider.of<ThemeProvider>(context).themeData,
       routes: {
         '/intropage': (context) => const IntroPage(),
         '/menupage': (context) => const MenuPage(),

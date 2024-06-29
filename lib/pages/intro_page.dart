@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uts_app/components/button.dart';
 
-import '../theme/colors.dart';
+import '../themes/colors.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
