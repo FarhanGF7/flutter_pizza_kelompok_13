@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uts_app/pages/cart_page.dart';
+import 'package:uts_app/auth/login_register.dart';
 import 'package:uts_app/themes/tema.dart';
-import 'models/shop.dart';
-import 'pages/intro_page.dart';
-import 'pages/menu_page.dart';
 
 void main() {
   runApp(
@@ -23,13 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const IntroPage(),
+      home: const LoginOrRegister(),
       theme: Provider.of<ThemeProvider>(context).themeData,
-      routes: {
-        '/intropage': (context) => const IntroPage(),
-        '/menupage': (context) => const MenuPage(),
-        '/cartpage': (context) => const CartPage(),
-      },
     );
   }
 }

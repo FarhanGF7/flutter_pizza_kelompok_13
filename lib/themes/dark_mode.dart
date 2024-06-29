@@ -5,7 +5,7 @@ ThemeData darkTheme = ThemeData(
     background: Colors.black,
     primary: Colors.blue.shade500,
     secondary: Colors.blue.shade900,
-    tertiary: Colors.blue,
+    tertiary: Colors.white,
     inversePrimary: Colors.white,
   ),
 );

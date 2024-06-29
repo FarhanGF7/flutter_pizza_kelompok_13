@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:uts_app/components/login_textfield.dart';
-import 'package:uts_app/components/signin_button.dart';
+import 'package:uts_app/components/register_textfield.dart';
+import 'package:uts_app/components/signup_button.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
 
-  const LoginPage({super.key, required this.onTap});
+  const RegisterPage({super.key, required this.onTap});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   // text editing controller
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,9 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 20),
 
-            // nama app
+            // pesan app
             Text(
-              'Pizza Rizqi',
+              'Daftar Akun',
               style: TextStyle(
                 fontSize: 16,
                 color: Theme.of(context).colorScheme.tertiary,
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 20),
 
             // email form
-            LoginTextField(
+            RegisterTextField(
               controller: emailController,
               hintText: "Email",
               obscureText: false,
@@ -54,37 +54,45 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 10),
 
             // password form
-            LoginTextField(
+            RegisterTextField(
               controller: passwordController,
               hintText: "Password",
               obscureText: true,
             ),
 
+            const SizedBox(height: 10),
+
+            RegisterTextField(
+              controller: confirmPasswordController,
+              hintText: "Konfirmasi Password",
+              obscureText: true,
+            ),
+
             const SizedBox(height: 25),
 
-            // sign in button
-            SignInButton(
-              text: "Masuk",
+            // sign un button
+            SignUpButton(
+              text: "Buat Akun",
               onTap: () {},
             ),
 
             const SizedBox(height: 25),
 
-            // registrasi button
+            // akun sudah terdaftar? Masuk ke sini
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Belum punya akun?",
+                  "Akun sudah terdaftar? ",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(width: 5),
                 GestureDetector(
                   onTap: widget.onTap,
                   child: Text(
-                    "Daftar di sini!",
+                    "Masuk ke sini!",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.tertiary,
                       fontWeight: FontWeight.bold,
