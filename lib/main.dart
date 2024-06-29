@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_app/auth/login_register.dart';
+import 'package:uts_app/models/restaurant.dart';
 import 'package:uts_app/themes/tema.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        // theme provider
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+
+        // restaurant provider
+        ChangeNotifierProvider(create: (context) => Restaurant()),
+      ],
       child: const MyApp(),
     ),
   );
