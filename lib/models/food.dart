@@ -19,8 +19,8 @@ class Food {
 // food categories
 enum FoodCategory {
   pizza,
-  drinks,
-  sides,
+  minuman,
+  makanan,
 }
 
 // food addons

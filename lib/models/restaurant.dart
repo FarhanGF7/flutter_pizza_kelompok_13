@@ -64,7 +64,7 @@ class Restaurant extends ChangeNotifier {
       description: "Segarkan hidupmu dengan Es Teh.",
       imagePath: "assets/images/drinks/es_teh.png",
       price: 5000,
-      category: FoodCategory.drinks,
+      category: FoodCategory.minuman,
       availableAddons: [],
     ),
     Food(
@@ -72,7 +72,7 @@ class Restaurant extends ChangeNotifier {
       description: "Segarkan hidupmu dengan Es Jeruk.",
       imagePath: "assets/images/drinks/es_jeruk.jpg",
       price: 5000,
-      category: FoodCategory.drinks,
+      category: FoodCategory.minuman,
       availableAddons: [],
     ),
 
@@ -82,7 +82,7 @@ class Restaurant extends ChangeNotifier {
       description: "Nasi goreng dengan bumbu pedas yang pas!",
       imagePath: "assets/images/sides/nasi_goreng.png",
       price: 10000,
-      category: FoodCategory.sides,
+      category: FoodCategory.makanan,
       availableAddons: [
         Addon(name: "Pedas", price: 5000),
         Addon(name: "Telur Mata Sapi", price: 5000),

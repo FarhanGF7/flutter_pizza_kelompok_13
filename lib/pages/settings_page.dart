@@ -28,7 +28,7 @@ class SettingsPage extends StatelessWidget {
               children: [
                 // dark mode switch
                 Text(
-                  "Dark Mode",
+                  "Mode Malam",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.inversePrimary,
