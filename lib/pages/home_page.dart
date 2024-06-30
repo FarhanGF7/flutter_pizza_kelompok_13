@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uts_app/components/current_path.dart';
+import 'package:uts_app/components/current_location.dart';
 import 'package:uts_app/components/description_box.dart';
 import 'package:uts_app/components/drawer.dart';
 import 'package:uts_app/components/food_tile.dart';
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 ),
 
                 // current path
-                const MyCurrentPath(),
+                MyCurrentLocation(),
 
                 // box deskripsi
                 const DescriptionBox(),

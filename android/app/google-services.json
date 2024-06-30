@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "28499378507",
+    "project_id": "flutter-pizza-8450a",
+    "storage_bucket": "flutter-pizza-8450a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28499378507:android:a2ffa7a546ffca0cb568ce",
+        "android_client_info": {
+          "package_name": "com.example.uts_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxh_HNf9UWKOEAqFlf98cD3NiCqGQ4qng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

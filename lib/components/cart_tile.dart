@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:uts_app/components/quantity_selector.dart';
 import 'package:uts_app/models/cart_item.dart';
@@ -25,49 +24,94 @@ class MyCartTile extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
         child: Column(
           children: [
-            Row(
-              children: [
-                // food image
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    cartItem.food.imagePath,
-                    height: 100,
-                    width: 100,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // food image
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      cartItem.food.imagePath,
+                      height: 100,
+                      width: 100,
+                    ),
                   ),
-                ),
 
-                const SizedBox(width: 10),
+                  const SizedBox(width: 10),
 
-                // nama dan harga
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // food name
-                    Text(cartItem.food.name),
+                  // nama dan harga
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // food name
+                      Text(cartItem.food.name),
 
-                    // food price
-                    Text('Rp. ${cartItem.food.price}'),
-                  ],
-                ),
+                      // food price
+                      Text(
+                        'Rp. ${cartItem.food.price}',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
 
-                const Spacer(),
+                      const SizedBox(height: 10),
 
-                // increment dan decrement quantity
-                QuantitySelector(
-                  quantity: cartItem.quantity,
-                  food: cartItem.food,
-                  onDecrement: () {
-                    restaurant.removeFromCart(cartItem);
-                  },
-                  onIncrement: () {
-                    restaurant.addToCart(cartItem.food, cartItem.selectedAddons);
-                  },
-                ),
-              ],
+                      // increment dan decrement quantity
+                      QuantitySelector(
+                        quantity: cartItem.quantity,
+                        food: cartItem.food,
+                        onDecrement: () {
+                          restaurant.removeFromCart(cartItem);
+                        },
+                        onIncrement: () {
+                          restaurant.addToCart(cartItem.food, cartItem.selectedAddons);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
 
             // addons
+            SizedBox(
+              height: cartItem.selectedAddons.isEmpty ? 0 : 10,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(left: 10, bottom: 10, right: 10),
+                children: cartItem.selectedAddons
+                    .map(
+                      (addon) => Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: FilterChip(
+                          label: Row(
+                            children: [
+                              // nama item yang di addon
+                              Text(addon.name),
+
+                              // harga item uang di addon
+                              Text(addon.price.toString())
+                            ],
+                          ),
+                          shape: StadiumBorder(
+                            side: BorderSide(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                          onSelected: (value) {},
+                          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            )
           ],
         ),
       ),

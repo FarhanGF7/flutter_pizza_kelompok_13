@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously, no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
+import 'package:uts_app/components/button.dart';
 import 'package:uts_app/components/register_textfield.dart';
-import 'package:uts_app/components/signup_button.dart';
+import 'package:uts_app/services/auth/auth_services.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -13,9 +16,46 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   // text editing controller
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  // register user
+  void registerUser() async {
+    // get auth service
+    final _authService = AuthService();
+
+    // cek if password and konfirmasi password sama
+    if (passwordController.text == confirmPasswordController.text) {
+      // creating user pakai try
+      try {
+        await _authService.signUpWithEmailPassword(
+          emailController.text,
+          passwordController.text,
+        );
+      }
+
+      // tangkap semua error
+      catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
+    }
+
+    // cek if password dan konfirmasi password beda
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("Password tidak sama"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +111,9 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(height: 25),
 
             // sign un button
-            SignUpButton(
+            MyButton(
               text: "Buat Akun",
-              onTap: () {},
+              onTap: registerUser,
             ),
 
             const SizedBox(height: 25),

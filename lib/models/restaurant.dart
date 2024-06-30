@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 import 'cart_item.dart';
 import 'food.dart';
@@ -16,7 +17,8 @@ class Restaurant extends ChangeNotifier {
       price: 30000,
       category: FoodCategory.pizza,
       availableAddons: [
-        Addon(name: "Extra Pedas", price: 5000),
+        Addon(name: "Pedas", price: 5000),
+        Addon(name: "Extra Keju", price: 3000),
       ],
     ),
     Food(
@@ -27,7 +29,8 @@ class Restaurant extends ChangeNotifier {
       price: 30000,
       category: FoodCategory.pizza,
       availableAddons: [
-        Addon(name: "Extra Pedas", price: 5000),
+        Addon(name: "Pedas", price: 5000),
+        Addon(name: "Extra Keju", price: 3000),
       ],
     ),
     Food(
@@ -38,34 +41,37 @@ class Restaurant extends ChangeNotifier {
       price: 30000,
       category: FoodCategory.pizza,
       availableAddons: [
-        Addon(name: "Extra Manis", price: 5000),
+        Addon(name: "Pedas", price: 5000),
+        Addon(name: "Extra Keju", price: 3000),
       ],
     ),
     Food(
       name: "Splitza Signature",
-      description: "",
+      description:
+          "Nikmati kelezatan pizza terbaik dengan Splitza Signature, perpaduan sempurna keju meleleh, topping segar, dan saus tomat istimewa yang memanjakan lidah Anda!",
       imagePath: "assets/images/pizza/splitza_signature.jpg",
       price: 30000,
       category: FoodCategory.pizza,
       availableAddons: [
-        Addon(name: "Extra Manis", price: 5000),
+        Addon(name: "Pedas", price: 5000),
+        Addon(name: "Extra Keju", price: 3000),
       ],
     ),
 
     //drinks
     Food(
       name: "Es Teh",
-      description: "fsafsa",
+      description: "Segarkan hidupmu dengan Es Teh.",
       imagePath: "assets/images/drinks/es_teh.png",
-      price: 10000,
+      price: 5000,
       category: FoodCategory.drinks,
       availableAddons: [],
     ),
     Food(
       name: "Es Jeruk",
-      description: "asdasd",
+      description: "Segarkan hidupmu dengan Es Jeruk.",
       imagePath: "assets/images/drinks/es_jeruk.jpg",
-      price: 10000,
+      price: 5000,
       category: FoodCategory.drinks,
       availableAddons: [],
     ),
@@ -73,13 +79,22 @@ class Restaurant extends ChangeNotifier {
     //sides
     Food(
       name: "Nasi Goreng",
-      description: "asd",
+      description: "Nasi goreng dengan bumbu pedas yang pas!",
       imagePath: "assets/images/sides/nasi_goreng.png",
       price: 10000,
       category: FoodCategory.sides,
-      availableAddons: [],
+      availableAddons: [
+        Addon(name: "Pedas", price: 5000),
+        Addon(name: "Telur Mata Sapi", price: 5000),
+      ],
     ),
   ];
+
+  // user keranjang
+  final List<CartItem> _cart = [];
+
+  // alamat pengiriman
+  String _deliveryAddress = "Jl. Juanda No. 1";
 
   /* 
   GETTER 
@@ -87,13 +102,7 @@ class Restaurant extends ChangeNotifier {
 
   List<Food> get menu => _menu;
   List<CartItem> get cart => _cart;
-
-  /* 
-  METHODS 
-  */
-
-  // user keranjang
-  final List<CartItem> _cart = [];
+  String get deliveryAddress => _deliveryAddress;
 
   // menambah pesanan ke keranjang
   void addToCart(Food food, List<Addon> selectedAddons) {
@@ -169,9 +178,51 @@ class Restaurant extends ChangeNotifier {
     notifyListeners();
   }
 
-  /* 
-  CONSTRUCTORS 
-  */
+  // update alamat pengiriman
+  void updateDeliveryAddress(String newAddress) {
+    _deliveryAddress = newAddress;
+    notifyListeners();
+  }
 
   // buat struk belanja
+  String displayCartReceipt() {
+    final receipt = StringBuffer();
+    receipt.writeln("Struk Tagihan.");
+    receipt.writeln();
+
+    // format tanggal waktu termasuk detik
+    String formattedDate = DateFormat('hh-bb-tttt JJ:mm:dd').format(DateTime.now());
+
+    receipt.writeln(formattedDate);
+    receipt.writeln();
+    receipt.writeln("______________________");
+
+    for (final cartItem in _cart) {
+      receipt.writeln(
+          "${cartItem.quantity} x ${cartItem.food.name} - ${_formatPrice(cartItem.food.price)}");
+      if (cartItem.selectedAddons.isNotEmpty) {
+        receipt.writeln("  Tambahan: ${_formatAddons(cartItem.selectedAddons)}");
+      }
+      receipt.writeln();
+    }
+
+    receipt.writeln("______________________");
+    receipt.writeln();
+    receipt.writeln("Total Pesanan: ${getTotalItems()}");
+    receipt.writeln("Total Biaya: ${_formatPrice(getTotalPrice())}");
+    receipt.writeln();
+    receipt.writeln("Pengeriman ke: $deliveryAddress");
+
+    return receipt.toString();
+  }
+
+  // format double ke angka ribuan
+  String _formatPrice(double price) {
+    return " Rp. ${price.toStringAsFixed(2)}";
+  }
+
+  // format list addons ke string
+  String _formatAddons(List<Addon> addons) {
+    return addons.map((addon) => "${addon.name} ${_formatPrice(addon.price)}").join(", ");
+  }
 }
