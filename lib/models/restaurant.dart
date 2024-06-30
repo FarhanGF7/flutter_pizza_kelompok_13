@@ -191,7 +191,7 @@ class Restaurant extends ChangeNotifier {
     receipt.writeln();
 
     // format tanggal waktu termasuk detik
-    String formattedDate = DateFormat('hh-bb-tttt JJ:mm:dd').format(DateTime.now());
+    String formattedDate = DateFormat('dd-MM-yyyy hh:mm:ss').format(DateTime.now());
 
     receipt.writeln(formattedDate);
     receipt.writeln();

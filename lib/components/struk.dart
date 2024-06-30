@@ -14,7 +14,7 @@ class MyStruk extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("Terima kasih telah membeli makanan di Pizza Rizqi!"),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Theme.of(context).colorScheme.secondary),
@@ -27,7 +27,7 @@ class MyStruk extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Text("Pesanan akan dikirimkan ke alamat anda secepatnya"),
           ],
         ),

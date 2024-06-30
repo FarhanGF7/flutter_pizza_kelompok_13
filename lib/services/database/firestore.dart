@@ -9,7 +9,6 @@ class FiresetoreService {
     await orders.add({
       'date': DateTime.now(),
       'pesanan': receipt,
-      //
     });
   }
 }
